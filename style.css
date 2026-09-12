@@ -20,43 +20,505 @@ body {
 
 
 /* =========================================================
-   2. NAVIGATION
+   NAVIGATION BAR
 ========================================================= */
 
-header {
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 80px;
+
+    z-index: 9999;
+
+    background: rgba(10, 10, 10, 0.95);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   NAVIGATION CONTAINER
+========================================================= */
+
+.nav-container {
+
+    width: 90%;
+
+    max-width: 1200px;
+
+    height: 100%;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.nav-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    text-decoration: none;
+
+    color: white;
+
+    flex-shrink: 0;
+}
+
+
+.logo-box {
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #00d9b5;
+
+    color: #00d9b5;
+
+    font-size: 20px;
+}
+
+
+.logo-name {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   DESKTOP NAVIGATION
+========================================================= */
+
+.nav-menu {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 35px;
+}
+
+
+.nav-link {
+
+    position: relative;
+
+    color: #b8b8b8;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    padding: 8px 0;
+
+    transition:
+        color 0.3s ease;
+}
+
+
+/* Hover */
+
+.nav-link:hover {
+
+    color: #00d9b5;
+}
+
+
+/* Active */
+
+.nav-link.active {
+
+    color: #00d9b5;
+}
+
+
+/* =========================================================
+   NAVIGATION UNDERLINE
+========================================================= */
+
+.nav-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -3px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: #00d9b5;
+
+    transition:
+        width 0.3s ease;
+}
+
+
+.nav-link:hover::after,
+.nav-link.active::after {
+
     width: 100%;
 }
 
-.navbar {
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.nav-right {
+
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
-    padding: 25px 8%;
+
+    gap: 15px;
+
+    flex-shrink: 0;
 }
 
-.logo {
-    font-size: 28px;
-    color: #38bdf8;
-}
 
-.nav-links {
-    display: flex;
-    gap: 30px;
-    list-style: none;
-}
+/* =========================================================
+   DOWNLOAD CV
+========================================================= */
 
-.nav-links a {
+.cv-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border: 1px solid #00d9b5;
+
+    color: #00d9b5;
+
     text-decoration: none;
-    color: white;
-    font-size: 16px;
-    transition: 0.3s;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: #38bdf8;
+
+.cv-button:hover {
+
+    background: #00d9b5;
+
+    color: #000;
 }
 
 
+/* =========================================================
+   HAMBURGER BUTTON
+========================================================= */
+
+.menu-toggle {
+
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    padding: 8px;
+
+    background: transparent;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.2);
+
+    cursor: pointer;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    position: relative;
+
+    z-index: 10001;
+}
+
+
+.menu-toggle span {
+
+    display: block;
+
+    width: 22px;
+
+    height: 2px;
+
+    background: white;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+
+        height: 70px;
+    }
+
+
+    .nav-container {
+
+        width: 92%;
+    }
+
+
+    /* LOGO */
+
+    .logo-box {
+
+        width: 34px;
+
+        height: 34px;
+
+        font-size: 17px;
+    }
+
+
+    .logo-name {
+
+        font-size: 12px;
+
+        letter-spacing: 1px;
+    }
+
+
+    /* HIDE DESKTOP CV */
+
+    .cv-button {
+
+        display: none;
+    }
+
+
+    /* SHOW HAMBURGER */
+
+    .menu-toggle {
+
+        display: flex;
+    }
+
+
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
+
+    .nav-menu {
+
+        position: fixed;
+
+        top: 70px;
+
+        left: 0;
+
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 0;
+
+        background:
+            rgba(10, 10, 10, 0.98);
+
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.1);
+
+        max-height: 0;
+
+        overflow: hidden;
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transition:
+            max-height 0.4s ease,
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+
+    /* =====================================================
+       OPEN MOBILE MENU
+    ===================================================== */
+
+    .nav-menu.active {
+
+        max-height: 350px;
+
+        opacity: 1;
+
+        visibility: visible;
+    }
+
+
+    /* =====================================================
+       MOBILE LINKS
+    ===================================================== */
+
+    .nav-link {
+
+        width: 100%;
+
+        padding: 18px 0;
+
+        text-align: center;
+
+        font-size: 15px;
+
+        color: #b8b8b8;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.05);
+    }
+
+
+    .nav-link:hover {
+
+        color: #00d9b5;
+
+        background:
+            rgba(0, 217, 181, 0.05);
+    }
+
+
+    .nav-link.active {
+
+        color: #00d9b5;
+    }
+
+
+    /* REMOVE DESKTOP UNDERLINE */
+
+    .nav-link::after {
+
+        display: none;
+    }
+
+
+    /* =====================================================
+       HAMBURGER → X ANIMATION
+    ===================================================== */
+
+    .menu-toggle.active span:nth-child(1) {
+
+        transform:
+            translateY(7px)
+            rotate(45deg);
+    }
+
+
+    .menu-toggle.active span:nth-child(2) {
+
+        opacity: 0;
+    }
+
+
+    .menu-toggle.active span:nth-child(3) {
+
+        transform:
+            translateY(-7px)
+            rotate(-45deg);
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL DEVICES
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .nav-container {
+
+        width: 94%;
+    }
+
+
+    .logo-name {
+
+        font-size: 10px;
+
+        letter-spacing: 0.8px;
+    }
+
+
+    .logo-box {
+
+        width: 32px;
+
+        height: 32px;
+    }
+
+}
 /* =========================================================
    3. HOME SECTION
 ========================================================= */
@@ -3050,6 +3512,166 @@ header {
 
     .nav-right {
         gap: 7px;
+    }
+
+}
+/* =========================================================
+   MOBILE HOME SECTION
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .home {
+        min-height: auto;
+
+        display: flex;
+        flex-direction: column-reverse;
+
+        justify-content: flex-start;
+        align-items: center;
+
+        text-align: center;
+
+        padding: 110px 6% 60px;
+
+        gap: 35px;
+    }
+
+
+    /* =====================================================
+       PROFILE IMAGE
+    ===================================================== */
+
+    .home-image {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 0;
+    }
+
+
+    .image-circle {
+        width: 280px;
+        height: 280px;
+    }
+
+
+    .image-circle img {
+        width: 260px;
+        height: 260px;
+    }
+
+
+    /* =====================================================
+       HOME TEXT
+    ===================================================== */
+
+    .home-content {
+        width: 100%;
+        max-width: 600px;
+    }
+
+
+    .small-text {
+        font-size: 11px;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .home-content h1 {
+        font-size: 34px;
+
+        line-height: 1.2;
+
+        margin-bottom: 15px;
+    }
+
+
+    .home-content h2 {
+        font-size: 21px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .description {
+        font-size: 15px;
+
+        line-height: 1.7;
+
+        margin-bottom: 25px;
+    }
+
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+
+    .buttons {
+        justify-content: center;
+
+        flex-wrap: wrap;
+    }
+
+
+    .btn {
+        padding: 12px 22px;
+
+        font-size: 14px;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .home {
+
+        padding-top: 100px;
+
+        gap: 25px;
+    }
+
+
+    .image-circle {
+
+        width: 230px;
+        height: 230px;
+    }
+
+
+    .image-circle img {
+
+        width: 212px;
+        height: 212px;
+    }
+
+
+    .home-content h1 {
+
+        font-size: 29px;
+    }
+
+
+    .home-content h2 {
+
+        font-size: 19px;
+    }
+
+
+    .description {
+
+        font-size: 14px;
     }
 
 }

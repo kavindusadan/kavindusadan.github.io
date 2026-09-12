@@ -23,11 +23,11 @@
 
         <div class="nav-container">
 
-            <!-- Logo -->
+            <!-- LOGO -->
             <a href="#home" class="nav-logo">
 
                 <div class="logo-box">
-                    <span>✦</span>
+                    ✦
                 </div>
 
                 <span class="logo-name">
@@ -37,7 +37,7 @@
             </a>
 
 
-            <!-- Navigation Links -->
+            <!-- DESKTOP / MOBILE NAVIGATION -->
             <nav class="nav-menu" id="navMenu">
 
                 <a href="#home" class="nav-link active">
@@ -59,16 +59,18 @@
             </nav>
 
 
-            <!-- Right Side -->
+            <!-- RIGHT SIDE -->
             <div class="nav-right">
 
+                <!-- DOWNLOAD CV -->
                 <a href="cv.pdf" class="cv-button" download>
                     DOWNLOAD CV
                 </a>
 
 
-                <!-- Hamburger -->
-                <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">
+                <!-- MOBILE MENU BUTTON -->
+                <button type="button" class="menu-toggle" id="menuToggle" aria-label="Open navigation menu"
+                    aria-expanded="false">
 
                     <span></span>
                     <span></span>
@@ -1266,17 +1268,17 @@
             </div>
 
         </div>
-        
 
-            <!-- BACK TO JOURNEY -->
 
-            <div class="back-to-journey">
+        <!-- BACK TO JOURNEY -->
 
-                <a href="#journey">
-                    ← Back to My Journey
-                </a>
+        <div class="back-to-journey">
 
-            </div>
+            <a href="#journey">
+                ← Back to My Journey
+            </a>
+
+        </div>
 
     </section>
 
@@ -1714,68 +1716,52 @@
 
 
     <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
+     JAVASCRIPT
+====================================================== -->
+
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <script>
 
+        /* =========================================================
+           1. SKILLS FILTER
+        ========================================================= */
 
-        /* =================================================
-           SKILLS FILTER
-        ================================================= */
-
-        const skillTabs =
-            document.querySelectorAll(".skill-tab");
-
-        const skillCards =
-            document.querySelectorAll(".skill-card");
-
-        const skillSearch =
-            document.getElementById("skillSearch");
-
+        const skillTabs = document.querySelectorAll(".skill-tab");
+        const skillCards = document.querySelectorAll(".skill-card");
+        const skillSearch = document.getElementById("skillSearch");
 
         let selectedCategory = "all";
 
 
-
-        /* =================================================
+        /* =========================================================
            FILTER SKILLS FUNCTION
-        ================================================= */
+        ========================================================= */
 
         function filterSkills() {
 
-            const searchText =
-                skillSearch
-                    ? skillSearch.value.toLowerCase().trim()
-                    : "";
+            const searchText = skillSearch
+                ? skillSearch.value.toLowerCase().trim()
+                : "";
 
-
-            skillCards.forEach(card => {
+            skillCards.forEach(function (card) {
 
                 const category =
                     card.getAttribute("data-category");
 
-
                 const titleElement =
                     card.querySelector("h3");
 
-
-                const skillName =
-                    titleElement
-                        ? titleElement.textContent
-                            .toLowerCase()
-                            .trim()
-                        : "";
-
+                const skillName = titleElement
+                    ? titleElement.textContent.toLowerCase().trim()
+                    : "";
 
                 const categoryMatch =
                     selectedCategory === "all" ||
                     category === selectedCategory;
 
-
                 const searchMatch =
                     skillName.includes(searchText);
-
 
                 if (categoryMatch && searchMatch) {
 
@@ -1792,26 +1778,24 @@
         }
 
 
-
-        /* =================================================
+        /* =========================================================
            SKILL TAB BUTTONS
-        ================================================= */
+        ========================================================= */
 
-        skillTabs.forEach(tab => {
+        skillTabs.forEach(function (tab) {
 
             tab.addEventListener("click", function () {
 
+                /* Remove active from all tabs */
 
-                /* Remove active class */
-
-                skillTabs.forEach(button => {
+                skillTabs.forEach(function (button) {
 
                     button.classList.remove("active");
 
                 });
 
 
-                /* Add active class */
+                /* Add active to clicked tab */
 
                 this.classList.add("active");
 
@@ -1831,10 +1815,9 @@
         });
 
 
-
-        /* =================================================
+        /* =========================================================
            SKILL SEARCH
-        ================================================= */
+        ========================================================= */
 
         if (skillSearch) {
 
@@ -1846,189 +1829,430 @@
         }
 
 
+        /* =========================================================
+           INITIAL SKILL DISPLAY
+        ========================================================= */
 
-        /* =================================================
-           SMOOTH SCROLL
-        ================================================= */
-
-        document
-            .querySelectorAll('a[href^="#"]')
-            .forEach(link => {
-
-                link.addEventListener(
-                    "click",
-                    function (event) {
-
-                        const targetId =
-                            this.getAttribute("href");
+        filterSkills();
 
 
-                        if (
-                            targetId &&
-                            targetId !== "#"
-                        ) {
 
-                            const target =
-                                document.querySelector(targetId);
+        /* =========================================================
+           2. SMOOTH SCROLL
+        ========================================================= */
+
+        const allAnchorLinks =
+            document.querySelectorAll('a[href^="#"]');
+
+        allAnchorLinks.forEach(function (link) {
+
+            link.addEventListener("click", function (event) {
+
+                const targetId =
+                    this.getAttribute("href");
 
 
-                            if (target) {
+                /* Ignore empty # */
 
-                                event.preventDefault();
+                if (
+                    !targetId ||
+                    targetId === "#"
+                ) {
+                    return;
+                }
 
 
-                                target.scrollIntoView({
+                const target =
+                    document.querySelector(targetId);
 
-                                    behavior: "smooth",
 
-                                    block: "start"
+                if (target) {
 
-                                });
+                    event.preventDefault();
 
-                            }
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+
+            });
+
+        });
+
+
+
+        /* =========================================================
+           3. CONTACT FORM - EMAILJS
+        ========================================================= */
+
+
+        /* =========================================================
+           INITIALIZE EMAILJS
+        ========================================================= */
+
+        if (typeof emailjs !== "undefined") {
+
+            emailjs.init({
+                publicKey: "pNLnhr49OD5IUjvK5"
+            });
+
+        }
+
+
+        const contactForm =
+            document.getElementById("contactForm");
+
+
+        if (contactForm) {
+
+            contactForm.addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    /* =============================================
+                       GET SUBMIT BUTTON
+                    ============================================= */
+
+                    const submitButton =
+                        contactForm.querySelector(
+                            'button[type="submit"], input[type="submit"]'
+                        );
+
+
+                    /* =============================================
+                       DISABLE BUTTON
+                    ============================================= */
+
+                    if (submitButton) {
+
+                        submitButton.disabled = true;
+
+                        if (submitButton.tagName === "INPUT") {
+
+                            submitButton.value = "SENDING...";
+
+                        } else {
+
+                            submitButton.textContent = "SENDING...";
 
                         }
 
                     }
+
+
+                    /* =============================================
+                       SEND EMAIL
+                    ============================================= */
+
+                    emailjs.sendForm(
+                        "service_portfolio",
+                        "template_7qezjp9",
+                        contactForm
+                    )
+
+                        .then(function () {
+
+                            /* =========================================
+                               SUCCESS
+                            ========================================= */
+
+                            alert(
+                                "Message sent successfully! Thank you for contacting me."
+                            );
+
+
+                            /* Clear form */
+
+                            contactForm.reset();
+
+
+                            /* Restore button */
+
+                            if (submitButton) {
+
+                                submitButton.disabled = false;
+
+                                if (submitButton.tagName === "INPUT") {
+
+                                    submitButton.value = "SEND MESSAGE";
+
+                                } else {
+
+                                    submitButton.textContent = "SEND MESSAGE";
+
+                                }
+
+                            }
+
+                        })
+
+                        .catch(function (error) {
+
+                            /* =========================================
+                               ERROR
+                            ========================================= */
+
+                            console.error(
+                                "EmailJS Error:",
+                                error
+                            );
+
+
+                            alert(
+                                "Sorry, your message could not be sent. Please try again."
+                            );
+
+
+                            /* Restore button */
+
+                            if (submitButton) {
+
+                                submitButton.disabled = false;
+
+                                if (submitButton.tagName === "INPUT") {
+
+                                    submitButton.value = "SEND MESSAGE";
+
+                                } else {
+
+                                    submitButton.textContent = "SEND MESSAGE";
+
+                                }
+
+                            }
+
+                        });
+
+                }
+            );
+
+        }
+
+
+/* =========================================================
+   NAVIGATION MENU
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =====================================================
+       GET ELEMENTS
+    ===================================================== */
+
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const navMenu =
+        document.getElementById("navMenu");
+
+    const navLinks =
+        document.querySelectorAll(".nav-link");
+
+
+    /* =====================================================
+       CHECK ELEMENTS
+    ===================================================== */
+
+    if (!menuToggle || !navMenu) {
+
+        console.error(
+            "Navigation elements not found."
+        );
+
+        return;
+    }
+
+
+    /* =====================================================
+       OPEN / CLOSE MOBILE MENU
+    ===================================================== */
+
+    menuToggle.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+
+            const isOpen =
+                navMenu.classList.toggle("active");
+
+
+            menuToggle.classList.toggle(
+                "active",
+                isOpen
+            );
+
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+
+
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen
+                    ? "Close navigation menu"
+                    : "Open navigation menu"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE MENU WHEN LINK IS CLICKED
+    ===================================================== */
+
+    navLinks.forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                navMenu.classList.remove("active");
+
+                menuToggle.classList.remove("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
                 );
 
-            });
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
 
-
-
-        /* =================================================
-           INITIAL SKILL DISPLAY
-        ================================================= */
-
-        filterSkills();
-
-        /* =====================================================
-   CONTACT FORM - EMAILJS
-===================================================== */
-
-// Initialize EmailJS
-emailjs.init({
-    publicKey: "pNLnhr49OD5IUjvK5"
-});
-
-
-const contactForm =
-    document.getElementById("contactForm");
-
-
-if (contactForm) {
-
-    contactForm.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-
-        // Send form using EmailJS
-        emailjs.sendForm(
-            "service_portfolio",
-            "template_7qezjp9",
-            this
-        )
-        .then(function () {
-
-            // Success message
-            alert(
-                "Message sent successfully! Thank you for contacting me."
-            );
-
-
-            // Clear form
-            contactForm.reset();
-
-        })
-        .catch(function (error) {
-
-            // Error message
-            console.error(
-                "EmailJS Error:",
-                error
-            );
-
-            alert(
-                "Sorry, your message could not be sent. Please try again."
-            );
-
-        });
+            }
+        );
 
     });
 
-}
-        /* =====================================================
-   MOBILE NAVIGATION
-===================================================== */
 
-        const menuToggle = document.getElementById("menuToggle");
-        const navMenu = document.getElementById("navMenu");
-        const navLinks = document.querySelectorAll(".nav-link");
+    /* =====================================================
+       CLOSE MENU WHEN CLICKING OUTSIDE
+    ===================================================== */
 
+    document.addEventListener(
+        "click",
+        function (event) {
 
-    
-        /* Close menu after clicking a link */
-
-        navLinks.forEach(function (link) {
-
-            link.addEventListener("click", function () {
-
-                navMenu.classList.remove("open");
-
-            });
-
-        });
+            if (
+                !navMenu.classList.contains("active")
+            ) {
+                return;
+            }
 
 
-        /* =====================================================
-           ACTIVE NAVIGATION LINK
-        ===================================================== */
+            const clickedInsideMenu =
+                navMenu.contains(event.target);
 
-        window.addEventListener("scroll", function () {
-
-            const sections =
-                document.querySelectorAll("section[id]");
-
-            let currentSection = "";
-
-            sections.forEach(function (section) {
-
-                const sectionTop =
-                    section.offsetTop - 150;
-
-                const sectionHeight =
-                    section.offsetHeight;
-
-                if (
-                    window.scrollY >= sectionTop &&
-                    window.scrollY < sectionTop + sectionHeight
-                ) {
-
-                    currentSection =
-                        section.getAttribute("id");
-
-                }
-
-            });
+            const clickedToggle =
+                menuToggle.contains(event.target);
 
 
-            navLinks.forEach(function (link) {
+            if (
+                !clickedInsideMenu &&
+                !clickedToggle
+            ) {
 
-                link.classList.remove("active");
+                navMenu.classList.remove("active");
 
-                if (
-                    link.getAttribute("href") ===
-                    "#" + currentSection
-                ) {
+                menuToggle.classList.remove("active");
 
-                    link.classList.add("active");
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
 
-                }
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
 
-            });
+            }
 
-        });
+        }
+    );
+
+
+    /* =====================================================
+       ESC KEY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                navMenu.classList.contains("active")
+            ) {
+
+                navMenu.classList.remove("active");
+
+                menuToggle.classList.remove("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE MENU WHEN SWITCHING TO DESKTOP
+    ===================================================== */
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (window.innerWidth > 768) {
+
+                navMenu.classList.remove("active");
+
+                menuToggle.classList.remove("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+            }
+
+        }
+    );
+
+});
+
+
+        /* =========================================================
+           END JAVASCRIPT
+        ========================================================= */
+
     </script>
 
 
